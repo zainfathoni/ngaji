@@ -3,6 +3,8 @@ import React, { Component } from 'react';
 let nextItemId = 0;
 class Ngaji extends Component {
   render() {
+    const { store } = this.props;
+
     return (
       <div>
         <input
@@ -22,7 +24,7 @@ class Ngaji extends Component {
         />
         <button
           onClick={() => {
-            this.props.store.dispatch({
+            store.dispatch({
               id: nextItemId++,
               type: 'ADD_ITEM',
               activity: this.activity.value,
@@ -38,7 +40,20 @@ class Ngaji extends Component {
         </button>
         <ul>
           {this.props.items.map(item =>
-            <li key={item.id}>
+            <li
+              key={item.id}
+              onClick={() => {
+                store.dispatch({
+                  type: 'TOGGLE_ITEM',
+                  id: item.id
+                });
+              }}
+              style={{
+                textDecoration:
+                  item.enabled ?
+                    'none' :
+                    'line-through'
+              }}>
               {item.activity} {item.target} {item.unit}
             </li>
           )}
