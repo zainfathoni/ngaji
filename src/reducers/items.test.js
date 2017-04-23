@@ -6,11 +6,15 @@ test('Add Item', () => {
   const action = {
     type: 'ADD_ITEM',
     id: 0,
-    text: 'Tilawah 1 Juz'
+    activity: 'Tilawah',
+    target: 1,
+    unit: 'Juz'
   };
   const stateAfter = [{
     id: 0,
-    text: 'Tilawah 1 Juz',
+    activity: 'Tilawah',
+    target: 1,
+    unit: 'Juz',
     enabled: true
   }];
   
@@ -26,12 +30,16 @@ test('Toggle Item', () => {
   const stateBefore = [
     {
       id: 0,
-      text: 'Tilawah 1 Juz',
+      activity: 'Tilawah',
+      target: 1,
+      unit: 'Juz',
       enabled: true
     },
     {
       id: 1,
-      text: 'Shalat Dhuha',
+      activity: 'Shalat Dhuha',
+      target: 4,
+      unit: "Raka'at",
       enabled: true
     }
   ];
@@ -42,12 +50,16 @@ test('Toggle Item', () => {
   const stateAfter = [
     {
       id: 0,
-      text: 'Tilawah 1 Juz',
+      activity: 'Tilawah',
+      target: 1,
+      unit: 'Juz',
       enabled: true
     },
     {
       id: 1,
-      text: 'Shalat Dhuha',
+      activity: 'Shalat Dhuha',
+      target: 4,
+      unit: "Raka'at",
       enabled: false
     }
   ]

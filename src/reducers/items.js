@@ -5,7 +5,9 @@ const items = (state = [], action) => {
         ...state,
         {
           id: action.id,
-          text: action.text,
+          activity: action.activity,
+          target: action.target,
+          unit: action.unit,
           enabled: true
         }
       ];
@@ -19,7 +21,7 @@ const items = (state = [], action) => {
             enabled: !item.enabled
           }
         }
-      })
+      });
     default:
       return state;
   }
