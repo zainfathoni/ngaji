@@ -5,6 +5,8 @@ const items = (state = [], action) => {
         ...state,
         item(undefined, action)
       ];
+    case 'RENAME_ACTIVITY':
+    case 'UPDATE_TARGET':
     case 'TOGGLE_ITEM':
       return state.map(i => item(i, action));
     default:
@@ -21,6 +23,25 @@ const item = (state, action) => {
         target: action.target,
         unit: action.unit,
         enabled: true
+      };
+    case 'RENAME_ACTIVITY':
+      if (state.id !== action.id) {
+        return state;
+      } else {
+        return {
+          ...state,
+          activity: action.activity
+        }
+      };
+    case 'UPDATE_TARGET':
+      if (state.id !== action.id) {
+        return state;
+      } else {
+        return {
+          ...state,
+          target: action.target || state.target,
+          unit: action.unit || state.unit,
+        }
       };
     case 'TOGGLE_ITEM':
       if (state.id !== action.id) {

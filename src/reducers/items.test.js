@@ -1,6 +1,25 @@
 import deepFreeze from 'deep-freeze';
 import items from './items';
 
+const stateBefore = [
+  {
+    id: 0,
+    activity: 'Tilawah',
+    target: 1,
+    unit: 'Juz',
+    enabled: true
+  },
+  {
+    id: 1,
+    activity: 'Shalat Dhuha',
+    target: 4,
+    unit: "Raka'at",
+    enabled: true
+  }
+];
+
+deepFreeze(stateBefore);
+
 test('Add Item', () => {
   const stateBefore = [];
   const action = {
@@ -18,7 +37,6 @@ test('Add Item', () => {
     enabled: true
   }];
   
-  deepFreeze(stateBefore);
   deepFreeze(action);
 
   expect(
@@ -26,8 +44,13 @@ test('Add Item', () => {
   ).toEqual(stateAfter);
 });
 
-test('Toggle Item', () => {
-  const stateBefore = [
+test('Rename Activity', () => {
+  const action = {
+    type: 'RENAME_ACTIVITY',
+    id: 1,
+    activity: 'Shalat Tahajjud'
+  }
+  const stateAfter = [
     {
       id: 0,
       activity: 'Tilawah',
@@ -37,12 +60,52 @@ test('Toggle Item', () => {
     },
     {
       id: 1,
+      activity: 'Shalat Tahajjud',
+      target: 4,
+      unit: "Raka'at",
+      enabled: true
+    }
+  ]
+
+  deepFreeze(action);
+
+  expect(
+    items(stateBefore, action)
+  ).toEqual(stateAfter);
+});
+
+test('Update Target', () => {
+  const action = {
+    type: 'UPDATE_TARGET',
+    id: 0,
+    target: 2,
+    unit: 'Halaman'
+  }
+  const stateAfter = [
+    {
+      id: 0,
+      activity: 'Tilawah',
+      target: 2,
+      unit: 'Halaman',
+      enabled: true
+    },
+    {
+      id: 1,
       activity: 'Shalat Dhuha',
       target: 4,
       unit: "Raka'at",
       enabled: true
     }
-  ];
+  ]
+
+  deepFreeze(action);
+
+  expect(
+    items(stateBefore, action)
+  ).toEqual(stateAfter);
+});
+
+test('Toggle Item', () => {
   const action = {
     type: 'TOGGLE_ITEM',
     id: 1
@@ -64,7 +127,6 @@ test('Toggle Item', () => {
     }
   ]
 
-  deepFreeze(stateBefore);
   deepFreeze(action);
 
   expect(
