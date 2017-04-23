@@ -5,9 +5,9 @@ test('Set Visibility Filter', () => {
   const stateBefore = 'SHOW_ALL';
   const action = {
     type: 'SET_VISIBILITY_FILTER',
-    filter: 'SHOW_VISIBLE'
+    filter: 'SHOW_ENABLED'
   }
-  const stateAfter = 'SHOW_VISIBLE';
+  const stateAfter = 'SHOW_ENABLED';
 
   deepFreeze(stateBefore);
   deepFreeze(action);
