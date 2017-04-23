@@ -1,7 +1,6 @@
 const items = (state = [], action) => {
   switch (action.type) {
     case 'ADD_ITEM':
-      console.log(action)
       return [
         ...state,
         {
@@ -10,6 +9,17 @@ const items = (state = [], action) => {
           enabled: true
         }
       ];
+    case 'TOGGLE_ITEM':
+      return state.map(item => {
+        if (item.id !== action.id) {
+          return item;
+        } else {
+          return {
+            ...item,
+            enabled: !item.enabled
+          }
+        }
+      })
     default:
       return state;
   }
