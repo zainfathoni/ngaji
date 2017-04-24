@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import AddItem from './AddItem';
 import Items from './Items';
 import FilterLink from './FilterLink';
 
@@ -33,37 +34,17 @@ class Ngaji extends Component {
 
     return (
       <div>
-        <input
-          type="text"
-          placeholder="Activity"
-          ref={node => {this.activity = node}}
-        />
-        <input
-          type="number"
-          placeholder="Target"
-          ref={node => {this.target = node}}
-        />
-        <input
-          type="text"
-          placeholder="Unit"
-          ref={node => {this.unit = node}}
-        />
-        <button
-          onClick={() => {
+        <AddItem
+          onAddClick={(activity, target, unit) => 
             store.dispatch({
-              id: nextItemId++,
               type: 'ADD_ITEM',
-              activity: this.activity.value,
-              target: this.target.value,
-              unit: this.unit.value,
-            });
-            this.activity.value = "";
-            this.target.value = "";
-            this.unit.value = "";
-          }}
-          >
-          Add Item
-        </button>
+              id: nextItemId++,
+              activity,
+              target,
+              unit
+            })
+        }
+        />
         <Items
           items={visibleItems}
           onItemClick={id => {
