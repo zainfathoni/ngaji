@@ -1,9 +1,34 @@
 import React, { Component } from 'react';
+import FilterLink from './FilterLink';
+
+const getVisibleItems = (
+  items,
+  filter
+) => {
+  switch (filter) {
+    case 'SHOW_ALL':
+      return items;
+    case 'SHOW_ENABLED':
+      return items.filter(
+        i => i.enabled
+      );
+    case 'SHOW_DISABLED':
+      return items.filter(
+        i => !i.enabled
+      );
+    default:
+      throw new Error(`Unknown filter: ${filter}.`);
+  }
+}
 
 let nextItemId = 0;
 class Ngaji extends Component {
   render() {
-    const { store } = this.props;
+    const { store, items, visibilityFilter } = this.props;
+    const visibleItems = getVisibleItems(
+      items,
+      visibilityFilter
+    )
 
     return (
       <div>
@@ -39,7 +64,7 @@ class Ngaji extends Component {
           Add Item
         </button>
         <ul>
-          {this.props.items.map(item =>
+          {visibleItems.map(item =>
             <li
               key={item.id}
               onClick={() => {
@@ -58,6 +83,33 @@ class Ngaji extends Component {
             </li>
           )}
         </ul>
+        <p>
+          Show:
+          {' '}
+          <FilterLink
+            store={store}
+            filter='SHOW_ALL'
+            currentFilter={visibilityFilter}
+          >
+            All
+          </FilterLink>
+          {' '}
+          <FilterLink
+            store={store}
+            filter='SHOW_ENABLED'
+            currentFilter={visibilityFilter}
+          >
+            Enabled
+          </FilterLink>
+          {' '}
+          <FilterLink
+            store={store}
+            filter='SHOW_DISABLED'
+            currentFilter={visibilityFilter}
+          >
+            Disabled
+          </FilterLink>
+        </p>
       </div>
     )
   }

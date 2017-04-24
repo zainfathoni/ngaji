@@ -9,7 +9,7 @@ const render = () => {
   ReactDOM.render(
     <Ngaji
       store={store}
-      items={store.getState().items}
+      {...store.getState()}
     />,
     document.getElementById('root')
   );
