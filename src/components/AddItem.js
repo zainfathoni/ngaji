@@ -23,7 +23,11 @@ const AddItem = ({
         ref={node => {unit = node}}
       />
       <button
-        onClick={() => {
+        onClick={e => {
+          e.preventDefault();
+          if (!activity.value.trim()) {
+            return;
+          }
           onAddClick(
             activity.value,
             target.value,
