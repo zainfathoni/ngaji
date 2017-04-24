@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Items from './Items';
 import FilterLink from './FilterLink';
 
 const getVisibleItems = (
@@ -63,26 +64,15 @@ class Ngaji extends Component {
           >
           Add Item
         </button>
-        <ul>
-          {visibleItems.map(item =>
-            <li
-              key={item.id}
-              onClick={() => {
-                store.dispatch({
-                  type: 'TOGGLE_ITEM',
-                  id: item.id
-                });
-              }}
-              style={{
-                textDecoration:
-                  item.enabled ?
-                    'none' :
-                    'line-through'
-              }}>
-              {item.activity} {item.target} {item.unit}
-            </li>
-          )}
-        </ul>
+        <Items
+          items={visibleItems}
+          onItemClick={id => {
+            store.dispatch({
+              type: 'TOGGLE_ITEM',
+              id
+            });
+          }}
+        />
         <p>
           Show:
           {' '}
