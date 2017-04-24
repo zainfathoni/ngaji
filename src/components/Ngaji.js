@@ -1,7 +1,7 @@
-import React, { Component } from 'react';
+import React from 'react';
 import AddItem from './AddItem';
 import Items from './Items';
-import FilterLink from './FilterLink';
+import Footer from './Footer';
 
 const getVisibleItems = (
   items,
@@ -24,66 +24,47 @@ const getVisibleItems = (
 }
 
 let nextItemId = 0;
-class Ngaji extends Component {
-  render() {
-    const { store, items, visibilityFilter } = this.props;
-    const visibleItems = getVisibleItems(
-      items,
-      visibilityFilter
-    )
-
-    return (
-      <div>
-        <AddItem
-          onAddClick={(activity, target, unit) => 
-            store.dispatch({
-              type: 'ADD_ITEM',
-              id: nextItemId++,
-              activity,
-              target,
-              unit
-            })
-        }
-        />
-        <Items
-          items={visibleItems}
-          onItemClick={id => {
-            store.dispatch({
-              type: 'TOGGLE_ITEM',
-              id
-            });
-          }}
-        />
-        <p>
-          Show:
-          {' '}
-          <FilterLink
-            store={store}
-            filter='SHOW_ALL'
-            currentFilter={visibilityFilter}
-          >
-            All
-          </FilterLink>
-          {' '}
-          <FilterLink
-            store={store}
-            filter='SHOW_ENABLED'
-            currentFilter={visibilityFilter}
-          >
-            Enabled
-          </FilterLink>
-          {' '}
-          <FilterLink
-            store={store}
-            filter='SHOW_DISABLED'
-            currentFilter={visibilityFilter}
-          >
-            Disabled
-          </FilterLink>
-        </p>
-      </div>
-    )
-  }
-}
+const Ngaji = ({
+  store,
+  items,
+  visibilityFilter
+}) => (
+  <div>
+    <AddItem
+      onAddClick={(activity, target, unit) => 
+        store.dispatch({
+          type: 'ADD_ITEM',
+          id: nextItemId++,
+          activity,
+          target,
+          unit
+        })
+      }
+    />
+    <Items
+      items={
+        getVisibleItems(
+          items,
+          visibilityFilter
+        )
+      }
+      onItemClick={id => {
+        store.dispatch({
+          type: 'TOGGLE_ITEM',
+          id
+        });
+      }}
+    />
+    <Footer
+      visibilityFilter={visibilityFilter}
+      onFilterClick={filter =>
+        store.dispatch({
+          type: 'SET_VISIBILITY_FILTER',
+          filter
+        })
+      }
+    />
+  </div>
+  )
 
 export default Ngaji;
