@@ -3,7 +3,6 @@ import AddItem from './AddItem';
 import VisibleItems from './VisibleItems';
 import Footer from './Footer';
 
-let nextItemId = 0;
 const Ngaji = ({
   store,
   items,
@@ -11,15 +10,7 @@ const Ngaji = ({
 }) => (
   <div>
     <AddItem
-      onAddClick={(activity, target, unit) => 
-        store.dispatch({
-          type: 'ADD_ITEM',
-          id: nextItemId++,
-          activity,
-          target,
-          unit
-        })
-      }
+      store={store}      
     />
     <VisibleItems
       store={store}
