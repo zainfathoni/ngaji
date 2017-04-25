@@ -1,8 +1,8 @@
 import React from 'react';
-
+import PropTypes from 'prop-types';
 let nextItemId = 0;
 
-const AddItem = ({
+const AddItem = (props, {
   store
 }) => {
   let activity, target, unit;
@@ -46,6 +46,10 @@ const AddItem = ({
       </button>
     </form>
   )
+}
+
+AddItem.contextTypes = {
+  store: PropTypes.object
 }
 
 export default AddItem;

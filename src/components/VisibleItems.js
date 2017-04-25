@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import Items from './Items';
 
 const getVisibleItems = (
@@ -23,7 +24,8 @@ const getVisibleItems = (
 
 class VisibleItems extends Component {
   componentDidMount() {
-    this.unsubscribe = this.props.store.subscribe(() =>
+    const { store } = this.context;   
+    this.unsubscribe = store.subscribe(() =>
       this.forceUpdate()
     );
   }
@@ -33,8 +35,7 @@ class VisibleItems extends Component {
   }
 
   render() {
-    const props = this.props;
-    const store = props.store;
+    const { store } = this.context;
     const state = store.getState();
 
     return (
@@ -54,6 +55,10 @@ class VisibleItems extends Component {
       />
     );
   }
+}
+
+VisibleItems.contextTypes = {
+  store: PropTypes.object
 }
 
 export default VisibleItems;

@@ -9,21 +9,18 @@ const Footer = ({
     {' '}
     <FilterLink
       filter='SHOW_ALL'
-      store={store}
     >
       All
     </FilterLink>
     {' '}
     <FilterLink
       filter='SHOW_ENABLED'
-      store={store}
     >
       Enabled
     </FilterLink>
     {' '}
     <FilterLink
       filter='SHOW_DISABLED'
-      store={store}
     >
       Disabled
     </FilterLink>
