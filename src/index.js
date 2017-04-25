@@ -4,27 +4,19 @@ import { createStore } from 'redux';
 import { Provider } from 'react-redux';
 import Ngaji from './components/Ngaji';
 import ngaji from './reducers';
+import { loadState, saveState } from './localStorage';
+import throttle from 'lodash/throttle';
 
-const persistedState = {
-  items: [
-    {
-      id: 0,
-      activity: 'Tilawah',
-      target: 1,
-      unit: 'Juz',
-      enabled: false
-    },
-    {
-      id: 1,
-      activity: 'Shalat Dhuha',
-      target: 4,
-      unit: "Raka'at",
-      enabled: true
-    }
-  ]
-}
-
+const persistedState = loadState();
 const store = createStore(ngaji, persistedState);
+
+store.subscribe(
+  throttle(() => {
+    saveState({
+      items: store.getState().items
+    })
+  }, 1000)
+);
 
 const render = () => {
   ReactDOM.render(

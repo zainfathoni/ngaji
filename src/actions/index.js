@@ -1,4 +1,4 @@
-let nextItemId = 0;
+import { v4 } from 'node-uuid';
 
 export const addItem = (
   activity,
@@ -6,7 +6,7 @@ export const addItem = (
   unit
 ) => ({
   type: 'ADD_ITEM',
-  id: nextItemId++,
+  id: v4(),
   activity,
   target,
   unit
