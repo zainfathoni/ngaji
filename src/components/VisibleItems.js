@@ -37,12 +37,12 @@ const mapDispatchToProps = (dispatch) => {
         type: 'TOGGLE_ITEM',
         id
       })
-  }
+  };
 }
 
 const VisibleItems = connect(
   mapStateToProps,
   mapDispatchToProps
-)(Items)
+)(Items);
 
 export default VisibleItems;
