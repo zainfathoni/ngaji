@@ -2,9 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 let nextItemId = 0;
 
-let AddItem = ({
-  dispatch
-}) => {
+let AddItem = ({ dispatch }) => {
   let activity, target, unit;
 
   return (
