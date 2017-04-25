@@ -6,19 +6,19 @@ const Footer = () => (
     Show:
     {' '}
     <FilterLink
-      filter='SHOW_ALL'
+      filter='all'
     >
       All
     </FilterLink>
     {' '}
     <FilterLink
-      filter='SHOW_ENABLED'
+      filter='enabled'
     >
       Enabled
     </FilterLink>
     {' '}
     <FilterLink
-      filter='SHOW_DISABLED'
+      filter='disabled'
     >
       Disabled
     </FilterLink>

@@ -1,4 +1,4 @@
-import { v4 } from 'node-uuid';
+import { v4 } from 'uuid';
 
 export const addItem = (
   activity,
@@ -18,10 +18,3 @@ export const toggleItem = (
   type: 'TOGGLE_ITEM',
   id
 });
-
-export const setVisibilityFilter = (
-  filter
-) => ({
-  type: 'SET_VISIBILITY_FILTER',
-  filter
-})

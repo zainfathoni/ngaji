@@ -6,7 +6,9 @@ import Ngaji from './Ngaji';
 const Root = ({ store }) => (
   <Provider store={store}>
     <Router>
-      <Route path='/' component={Ngaji} />
+      <div>
+        <Route path='/:filter?' component={Ngaji} />
+      </div>
     </Router>
   </Provider>
 );
