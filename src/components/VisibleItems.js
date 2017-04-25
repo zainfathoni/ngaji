@@ -1,5 +1,6 @@
 import { connect } from 'react-redux';
 import Items from './Items';
+import { toggleItem } from '../actions';
 
 const getVisibleItems = (
   items,
@@ -32,11 +33,11 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    onItemClick: id =>
-      dispatch({
-        type: 'TOGGLE_ITEM',
-        id
-      })
+    onItemClick: id => {
+      dispatch(
+        toggleItem(id)
+      )
+    }
   };
 }
 

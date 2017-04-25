@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-let nextItemId = 0;
+import { addItem } from '../actions';
 
 let AddItem = ({ dispatch }) => {
   let activity, target, unit;
@@ -12,13 +12,13 @@ let AddItem = ({ dispatch }) => {
         if (!activity.value.trim()) {
           return;
         }
-        dispatch({
-          type: 'ADD_ITEM',
-          id: nextItemId++,
-          activity: activity.value,
-          target: target.value,
-          unit: unit.value
-        });
+        dispatch(
+          addItem(
+            activity.value,
+            target.value,
+            unit.value
+          )
+        );
         activity.value = "";
         target.value = "";
         unit.value = "";
