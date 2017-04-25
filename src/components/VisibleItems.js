@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import Items from './Items';
 
 const getVisibleItems = (
@@ -21,39 +21,28 @@ const getVisibleItems = (
   }
 }
 
-class VisibleItems extends Component {
-  componentDidMount() {
-    this.unsubscribe = this.props.store.subscribe(() =>
-      this.forceUpdate()
-    );
-  }
-
-  componentWillUnmount() {
-    this.unsubscribe();
-  }
-
-  render() {
-    const props = this.props;
-    const store = props.store;
-    const state = store.getState();
-
-    return (
-      <Items
-        items={
-          getVisibleItems(
-            state.items,
-            state.visibilityFilter
-          )
-        }
-        onItemClick={id =>
-          store.dispatch({
-            type: 'TOGGLE_ITEM',
-            id
-          })
-        }
-      />
-    );
-  }
+const mapStateToProps = (state) => {
+  return {
+    items: getVisibleItems(
+      state.items,
+      state.visibilityFilter
+    )
+  };
 }
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    onItemClick: id =>
+      dispatch({
+        type: 'TOGGLE_ITEM',
+        id
+      })
+  };
+}
+
+const VisibleItems = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Items);
 
 export default VisibleItems;

@@ -1,19 +1,17 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { createStore } from 'redux';
+import { Provider } from 'react-redux';
 import Ngaji from './components/Ngaji';
 import ngaji from './reducers';
 
-const store = createStore(ngaji);
 const render = () => {
   ReactDOM.render(
-    <Ngaji
-      store={store}
-      {...store.getState()}
-    />,
+    <Provider store={createStore(ngaji)}>
+      <Ngaji />
+    </Provider>,
     document.getElementById('root')
   );
 };
 
-store.subscribe(render);
 render();

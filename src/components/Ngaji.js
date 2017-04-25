@@ -3,21 +3,11 @@ import AddItem from './AddItem';
 import VisibleItems from './VisibleItems';
 import Footer from './Footer';
 
-const Ngaji = ({
-  store,
-  items,
-  visibilityFilter
-}) => (
+const Ngaji = () => (
   <div>
-    <AddItem
-      store={store}      
-    />
-    <VisibleItems
-      store={store}
-    />
-    <Footer
-      store={store}
-    />
+    <AddItem />
+    <VisibleItems />
+    <Footer />
   </div>
 )
 

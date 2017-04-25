@@ -1,10 +1,8 @@
 import React from 'react';
-
+import { connect } from 'react-redux';
 let nextItemId = 0;
 
-const AddItem = ({
-  store
-}) => {
+let AddItem = ({ dispatch }) => {
   let activity, target, unit;
 
   return (
@@ -14,7 +12,7 @@ const AddItem = ({
         if (!activity.value.trim()) {
           return;
         }
-        store.dispatch({
+        dispatch({
           type: 'ADD_ITEM',
           id: nextItemId++,
           activity: activity.value,
@@ -47,5 +45,7 @@ const AddItem = ({
     </form>
   )
 }
+
+AddItem = connect()(AddItem);
 
 export default AddItem;
