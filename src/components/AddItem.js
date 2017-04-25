@@ -1,9 +1,9 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 let nextItemId = 0;
 
-const AddItem = (props, {
-  store
+let AddItem = ({
+  dispatch
 }) => {
   let activity, target, unit;
 
@@ -14,7 +14,7 @@ const AddItem = (props, {
         if (!activity.value.trim()) {
           return;
         }
-        store.dispatch({
+        dispatch({
           type: 'ADD_ITEM',
           id: nextItemId++,
           activity: activity.value,
@@ -48,8 +48,13 @@ const AddItem = (props, {
   )
 }
 
-AddItem.contextTypes = {
-  store: PropTypes.object
-}
+AddItem = connect(
+  state => {
+    return {};
+  },
+  dispatch => {
+    return { dispatch };
+  }
+)(AddItem);
 
 export default AddItem;
