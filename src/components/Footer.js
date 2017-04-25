@@ -1,9 +1,7 @@
 import React from 'react';
 import FilterLink from './FilterLink';
 
-const Footer = ({
-  store
-}) => (
+const Footer = () => (
   <p>
     Show:
     {' '}

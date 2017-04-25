@@ -3,9 +3,7 @@ import AddItem from './AddItem';
 import VisibleItems from './VisibleItems';
 import Footer from './Footer';
 
-const Ngaji = ({
-  store
-}) => (
+const Ngaji = () => (
   <div>
     <AddItem />
     <VisibleItems />
