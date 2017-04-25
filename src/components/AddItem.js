@@ -46,13 +46,6 @@ let AddItem = ({ dispatch }) => {
   )
 }
 
-AddItem = connect(
-  state => {
-    return {};
-  },
-  dispatch => {
-    return { dispatch };
-  }
-)(AddItem);
+AddItem = connect()(AddItem);
 
 export default AddItem;
