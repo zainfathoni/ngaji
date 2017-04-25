@@ -7,13 +7,13 @@ const getVisibleItems = (
   filter
 ) => {
   switch (filter) {
-    case 'SHOW_ALL':
+    case 'all':
       return items;
-    case 'SHOW_ENABLED':
+    case 'enabled':
       return items.filter(
         i => i.enabled
       );
-    case 'SHOW_DISABLED':
+    case 'disabled':
       return items.filter(
         i => !i.enabled
       );
@@ -22,11 +22,11 @@ const getVisibleItems = (
   }
 }
 
-const mapStateToProps = (state) => {
+const mapStateToProps = (state, ownProps) => {
   return {
     items: getVisibleItems(
       state.items,
-      state.visibilityFilter
+      ownProps.filter
     )
   };
 }
