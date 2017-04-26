@@ -17,7 +17,7 @@ const addLoggingToDispatch = (store) => {
     console.groupEnd(action.type);
     return returnValue;
   }
-}
+};
 
 const addPromiseSupportToDispatch = (store) => {
   const rawDispatch = store.dispatch;
@@ -28,7 +28,7 @@ const addPromiseSupportToDispatch = (store) => {
     }
     return rawDispatch(action);
   }
-}
+};
 
 const configureStore = () => {
   const store = createStore(ngaji);
@@ -40,6 +40,6 @@ const configureStore = () => {
   store.dispatch = addPromiseSupportToDispatch(store);
 
   return store;
-}
+};
 
 export default configureStore;

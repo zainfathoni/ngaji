@@ -38,7 +38,7 @@ const mapStateToProps = (state, { match }) => {
     items: getVisibleItems(state, filter),
     filter
   };
-}
+};
 
 VisibleItems = withRouter(
   connect(
