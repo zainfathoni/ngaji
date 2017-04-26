@@ -1,7 +1,5 @@
 import { createStore } from 'redux';
 import ngaji from './reducers';
-import { loadState, saveState } from './localStorage';
-import throttle from 'lodash/throttle';
 
 const addLoggingToDispatch = (store) => {
   const rawDispatch = store.dispatch;
@@ -22,20 +20,11 @@ const addLoggingToDispatch = (store) => {
 }
 
 const configureStore = () => {
-  const persistedState = loadState();
-  const store = createStore(ngaji, persistedState);
+  const store = createStore(ngaji);
 
   if (process.env.NODE_ENV !== 'production') {
     store.dispatch = addLoggingToDispatch(store);
   }
-
-  store.subscribe(
-    throttle(() => {
-      saveState({
-        items: store.getState().items
-      })
-    }, 1000)
-  );
 
   return store;
 }
