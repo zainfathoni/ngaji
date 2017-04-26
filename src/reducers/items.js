@@ -1,60 +1,66 @@
 import { combineReducers } from 'redux';
-import item from './item';
 
 const byId = (state = {}, action) => {
   switch (action.type) {
-    case 'ADD_ITEM':
-    case 'RENAME_ACTIVITY':
-    case 'UPDATE_TARGET':
-    case 'TOGGLE_ITEM':
-      return {
-        ...state,
-        [action.id]: item(state[action.id], action)
-      }
+    case 'RECEIVE_ITEMS':
+      const nextState = { ...state };
+      action.response.forEach(item => {
+        nextState[item.id] = item;
+      });
+      return nextState;
     default:
       return state;
   }
 };
 
 const allIds = (state = [], action) => {
+  if (action.filter !== 'all') {
+    return state;
+  }
   switch (action.type) {
-    case 'ADD_ITEM':
-      return [
-        ...state,
-        action.id
-      ];
+    case 'RECEIVE_ITEMS':
+      return action.response.map(item => item.id);
     default:
       return state;
   }
-}
+};
+
+const enabledIds = (state = [], action) => {
+  if (action.filter !== 'enabled') {
+    return state;
+  }switch (action.type) {
+    case 'RECEIVE_ITEMS':
+      return action.response.map(item => item.id);
+    default:
+      return state;
+  }
+};
+
+const disabledIds = (state = [], action) => {
+  if (action.filter !== 'disabled') {
+    return state;
+  }switch (action.type) {
+    case 'RECEIVE_ITEMS':
+      return action.response.map(item => item.id);
+    default:
+      return state;
+  }
+};
+
+const idsByFilter = combineReducers({
+  all: allIds,
+  enabled: enabledIds,
+  disabled: disabledIds
+});
 
 const items = combineReducers({
   byId,
-  allIds
+  idsByFilter
 });
 
 export default items;
 
-const getAllItems = (state) =>
-  state.allIds.map(id => state.byId[id]);
-
-export const getVisibleItems = (
-  state,
-  filter
-) => {
-  const allItems = getAllItems(state);
-  switch (filter) {
-    case 'all':
-      return allItems;
-    case 'enabled':
-      return allItems.filter(
-        i => i.enabled
-      );
-    case 'disabled':
-      return allItems.filter(
-        i => !i.enabled
-      );
-    default:
-      throw new Error(`Unknown filter: ${filter}.`);
-  }
-}
+export const getVisibleItems = (state, filter) => {
+  const ids = state.idsByFilter[filter];
+  return ids.map(id => state.byId[id]);
+};
