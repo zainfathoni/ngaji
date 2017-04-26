@@ -38,8 +38,6 @@ const configureStore = () => {
     middlewares.push(logger);
   }
 
-  middlewares.push(promise);
-
   wrapDispatchWithMiddlewares(store, middlewares);
 
   return store;
