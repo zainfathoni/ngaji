@@ -37,10 +37,10 @@ export const fetchItems = (filter) =>
     switch (filter) {
       case 'all':
         return fakeDatabase.items;
-      case 'active':
-        return fakeDatabase.items.filter(t => !t.completed);
-      case 'completed':
-        return fakeDatabase.items.filter(t => t.completed);
+      case 'enabled':
+        return fakeDatabase.items.filter(t => t.enabled);
+      case 'disabled':
+        return fakeDatabase.items.filter(t => !t.enabled);
       default:
         throw new Error(`Unknown filter: ${filter}`);
     }
