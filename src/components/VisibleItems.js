@@ -2,31 +2,12 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import Items from './Items';
 import { toggleItem } from '../actions';
-
-const getVisibleItems = (
-  items,
-  filter
-) => {
-  switch (filter) {
-    case 'all':
-      return items;
-    case 'enabled':
-      return items.filter(
-        i => i.enabled
-      );
-    case 'disabled':
-      return items.filter(
-        i => !i.enabled
-      );
-    default:
-      throw new Error(`Unknown filter: ${filter}.`);
-  }
-}
+import { getVisibleItems } from '../reducers';
 
 const mapStateToProps = (state, { match }) => {
   return {
     items: getVisibleItems(
-      state.items,
+      state,
       match.params.filter || 'all'
     )
   };

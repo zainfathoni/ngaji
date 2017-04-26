@@ -55,3 +55,23 @@ const items = (state = [], action) => {
 };
 
 export default items;
+
+export const getVisibleItems = (
+  state,
+  filter
+) => {
+  switch (filter) {
+    case 'all':
+      return state;
+    case 'enabled':
+      return state.filter(
+        i => i.enabled
+      );
+    case 'disabled':
+      return state.filter(
+        i => !i.enabled
+      );
+    default:
+      throw new Error(`Unknown filter: ${filter}.`);
+  }
+}
