@@ -1,5 +1,14 @@
 import { v4 } from 'uuid';
 
+export const receiveItems = (
+  filter,
+  response
+) => ({
+  type: 'RECEIVE_ITEMS',
+  filter,
+  response
+})
+
 export const addItem = (
   activity,
   target,

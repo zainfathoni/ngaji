@@ -2,28 +2,35 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import Items from './Items';
-import { toggleItem } from '../actions';
+import * as actions from '../actions';
 import { getVisibleItems } from '../reducers';
 import { fetchItems } from '../api';
 
 class VisibleItems extends Component {
   componentDidMount() {
-    fetchItems(this.props.filter).then(items =>
-      console.log(this.props.filter, items)
-    );
+    this.fetchData();
   }
 
   componentDidUpdate(prevProps) {
     if (this.props.filter !== prevProps.filter) {
-      fetchItems(this.props.filter).then(items =>
-        console.log(this.props.filter, items)
-      );
+      this.fetchData();
     }
   }
 
+  fetchData() {
+    const { filter, receiveItems } = this.props;
+    fetchItems(filter).then(items =>
+      receiveItems(filter, items)
+    );
+  }
+
   render() {
+    const { toggleItem, ...rest } = this.props;
     return (
-      <Items {...this.props} />
+      <Items
+        {...rest}
+        onItemClick={toggleItem}
+      />
     );
   }
 }
@@ -39,7 +46,7 @@ const mapStateToProps = (state, { match }) => {
 VisibleItems = withRouter(
   connect(
     mapStateToProps,
-    { onItemClick: toggleItem }
+    actions
   )(VisibleItems)
 );
 
