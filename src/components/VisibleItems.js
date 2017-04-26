@@ -32,20 +32,10 @@ const mapStateToProps = (state, { match }) => {
   };
 }
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    onItemClick: id => {
-      dispatch(
-        toggleItem(id)
-      )
-    }
-  };
-}
-
 const VisibleItems = withRouter(
   connect(
     mapStateToProps,
-    mapDispatchToProps
+    { onItemClick: toggleItem }
   )(Items)
 );
 
