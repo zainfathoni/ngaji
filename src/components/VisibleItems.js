@@ -4,7 +4,6 @@ import { withRouter } from 'react-router-dom';
 import Items from './Items';
 import * as actions from '../actions';
 import { getVisibleItems } from '../reducers';
-import { fetchItems } from '../api';
 
 class VisibleItems extends Component {
   componentDidMount() {
@@ -18,10 +17,8 @@ class VisibleItems extends Component {
   }
 
   fetchData() {
-    const { filter, receiveItems } = this.props;
-    fetchItems(filter).then(items =>
-      receiveItems(filter, items)
-    );
+    const { filter, fetchItems } = this.props;
+    fetchItems(filter);
   }
 
   render() {

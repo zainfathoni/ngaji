@@ -1,13 +1,19 @@
 import { v4 } from 'uuid';
+import * as api from '../api';
 
-export const receiveItems = (
+const receiveItems = (
   filter,
   response
 ) => ({
   type: 'RECEIVE_ITEMS',
   filter,
   response
-})
+});
+
+export const fetchItems = (filter) =>
+  api.fetchItems(filter).then(response =>
+    receiveItems(filter, response)
+  );
 
 export const addItem = (
   activity,
