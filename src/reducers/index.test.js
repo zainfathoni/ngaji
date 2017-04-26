@@ -1,8 +1,27 @@
 import deepFreeze from 'deep-freeze';
-import ngaji from './';
+import items from './index';
+
+const stateBefore = [
+  {
+    id: 0,
+    activity: 'Tilawah',
+    target: 1,
+    unit: 'Juz',
+    enabled: true
+  },
+  {
+    id: 1,
+    activity: 'Shalat Dhuha',
+    target: 4,
+    unit: "Raka'at",
+    enabled: true
+  }
+];
+
+deepFreeze(stateBefore);
 
 test('Add Item', () => {
-  const stateBefore = {};
+  const stateBefore = [];
   const action = {
     type: 'ADD_ITEM',
     id: 0,
@@ -10,40 +29,107 @@ test('Add Item', () => {
     target: 1,
     unit: 'Juz'
   };
-  const stateAfter = {
-    items: [{
+  const stateAfter = [{
+    id: 0,
+    activity: 'Tilawah',
+    target: 1,
+    unit: 'Juz',
+    enabled: true
+  }];
+  
+  deepFreeze(action);
+
+  expect(
+    items(stateBefore, action)
+  ).toEqual(stateAfter);
+});
+
+test('Rename Activity', () => {
+  const action = {
+    type: 'RENAME_ACTIVITY',
+    id: 1,
+    activity: 'Shalat Tahajjud'
+  };
+  const stateAfter = [
+    {
       id: 0,
       activity: 'Tilawah',
       target: 1,
       unit: 'Juz',
       enabled: true
-    }],
-    visibilityFilter: 'SHOW_ALL'
-  }
-  
-  deepFreeze(stateBefore);
+    },
+    {
+      id: 1,
+      activity: 'Shalat Tahajjud',
+      target: 4,
+      unit: "Raka'at",
+      enabled: true
+    }
+  ];
+
   deepFreeze(action);
 
   expect(
-    ngaji(stateBefore, action)
+    items(stateBefore, action)
   ).toEqual(stateAfter);
 });
 
-test('Set Visibility Filter', () => {
-  const stateBefore = {};
+test('Update Target', () => {
   const action = {
-    type: 'SET_VISIBILITY_FILTER',
-    filter: 'SHOW_ENABLED'
+    type: 'UPDATE_TARGET',
+    id: 0,
+    target: 2,
+    unit: 'Halaman'
   };
-  const stateAfter = {
-    items: [],
-    visibilityFilter: 'SHOW_ENABLED'
-  }
-  
-  deepFreeze(stateBefore);
+  const stateAfter = [
+    {
+      id: 0,
+      activity: 'Tilawah',
+      target: 2,
+      unit: 'Halaman',
+      enabled: true
+    },
+    {
+      id: 1,
+      activity: 'Shalat Dhuha',
+      target: 4,
+      unit: "Raka'at",
+      enabled: true
+    }
+  ];
+
   deepFreeze(action);
 
   expect(
-    ngaji(stateBefore, action)
+    items(stateBefore, action)
+  ).toEqual(stateAfter);
+});
+
+test('Toggle Item', () => {
+  const action = {
+    type: 'TOGGLE_ITEM',
+    id: 1
+  };
+  const stateAfter = [
+    {
+      id: 0,
+      activity: 'Tilawah',
+      target: 1,
+      unit: 'Juz',
+      enabled: true
+    },
+    {
+      id: 1,
+      activity: 'Shalat Dhuha',
+      target: 4,
+      unit: "Raka'at",
+      enabled: false
+    }
+  ];
+
+  deepFreeze(action);
+
+  expect(
+    items(stateBefore, action)
   ).toEqual(stateAfter);
 });

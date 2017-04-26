@@ -1,7 +1,7 @@
 import { createStore, applyMiddleware } from "redux";
 import promise from 'redux-promise';
 import { createLogger } from 'redux-logger';
-import ngaji from "./reducers";
+import items from "./reducers";
 
 const configureStore = () => {
   const middlewares = [promise];
@@ -10,7 +10,7 @@ const configureStore = () => {
   }
 
   return createStore(
-    ngaji,
+    items,
     applyMiddleware(...middlewares)
   );
 };

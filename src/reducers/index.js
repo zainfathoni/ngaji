@@ -1,11 +1,21 @@
 import { combineReducers } from 'redux';
-import items, * as fromItems from './items';
+import byId, * as fromById from  './byId';
+import createList, * as fromList from  './createList';
 
-const ngaji = combineReducers({
-  items
+const listByFilter = combineReducers({
+  all: createList('all'),
+  enabled: createList('enabled'),
+  disabled: createList('disabled')
 });
 
-export default ngaji;
+const items = combineReducers({
+  byId,
+  listByFilter
+});
 
-export const getVisibleItems = (state, filter) =>
-  fromItems.getVisibleItems(state.items, filter);
+export default items;
+
+export const getVisibleItems = (state, filter) => {
+  const ids = fromList.getIds(state.listByFilter[filter]);
+  return ids.map(id => fromById.getItem(state.byId, id));
+};
