@@ -17,8 +17,7 @@ class VisibleItems extends Component {
   }
 
   fetchData() {
-    const { filter, requestItems, fetchItems } = this.props;
-    requestItems(filter);
+    const { filter, fetchItems } = this.props;
     fetchItems(filter);
   }
 

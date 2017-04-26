@@ -1,7 +1,7 @@
 import { v4 } from 'uuid';
 import * as api from '../api';
 
-export const requestItems = (filter) => ({
+const requestItems = (filter) => ({
   type: 'REQUEST_ITEMS',
   filter
 });
@@ -15,10 +15,13 @@ const receiveItems = (
   response
 });
 
-export const fetchItems = (filter) =>
-  api.fetchItems(filter).then(response =>
-    receiveItems(filter, response)
-  );
+export const fetchItems = (filter) => (dispatch) => {
+  dispatch(requestItems(filter));
+
+  return api.fetchItems(filter).then(response => {
+    dispatch(receiveItems(filter, response))
+  });
+};
 
 export const addItem = (
   activity,
