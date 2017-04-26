@@ -1,6 +1,11 @@
 import { v4 } from 'uuid';
 import * as api from '../api';
 
+export const requestItems = (filter) => ({
+  type: 'REQUEST_ITEMS',
+  filter
+});
+
 const receiveItems = (
   filter,
   response
