@@ -3,12 +3,10 @@ import AddItem from './AddItem';
 import VisibleItems from './VisibleItems';
 import Footer from './Footer';
 
-const Ngaji = ({ match }) => (
+const Ngaji = () => (
   <div>
     <AddItem />
-    <VisibleItems
-      filter={match.params.filter || 'all'}
-    />
+    <VisibleItems />
     <Footer />
   </div>
 )

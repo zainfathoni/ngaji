@@ -1,4 +1,5 @@
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 import Items from './Items';
 import { toggleItem } from '../actions';
 
@@ -22,11 +23,11 @@ const getVisibleItems = (
   }
 }
 
-const mapStateToProps = (state, ownProps) => {
+const mapStateToProps = (state, { match }) => {
   return {
     items: getVisibleItems(
       state.items,
-      ownProps.filter
+      match.params.filter || 'all'
     )
   };
 }
@@ -41,9 +42,11 @@ const mapDispatchToProps = (dispatch) => {
   };
 }
 
-const VisibleItems = connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(Items);
+const VisibleItems = withRouter(
+  connect(
+    mapStateToProps,
+    mapDispatchToProps
+  )(Items)
+);
 
 export default VisibleItems;
