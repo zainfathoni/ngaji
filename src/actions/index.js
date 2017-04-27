@@ -1,4 +1,5 @@
 import { v4 } from 'uuid';
+import { getIsFetching } from "../reducers";
 import * as api from '../api';
 
 const requestItems = (filter) => ({
@@ -15,7 +16,11 @@ const receiveItems = (
   response
 });
 
-export const fetchItems = (filter) => (dispatch) => {
+export const fetchItems = (filter) => (dispatch, getState) => {
+  if (getIsFetching(getState(), filter)) {
+    return Promise.resolve();
+  }
+
   dispatch(requestItems(filter));
 
   return api.fetchItems(filter).then(response => {
