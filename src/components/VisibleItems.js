@@ -3,7 +3,8 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import Items from './Items';
 import * as actions from '../actions';
-import { getVisibleItems, getIsFetching } from '../reducers';
+import { getVisibleItems, getIsFetching, getErrorMessage } from '../reducers';
+import FetchError from './FetchError';
 
 class VisibleItems extends Component {
   componentDidMount() {
@@ -22,10 +23,19 @@ class VisibleItems extends Component {
   }
 
   render() {
-    const { toggleItem, items, isFetching } = this.props;
+    const { toggleItem, items, isFetching, errorMessage } = this.props;
     if (isFetching && !items.length) {
       return <p>Loading...</p>;
     }
+    if (errorMessage && !items.length) {
+      return (
+        <FetchError
+          message={errorMessage}
+          onRetry={() => this.fetchData()}
+        />
+      )
+    }
+
     return (
       <Items
         items={items}
@@ -40,6 +50,7 @@ const mapStateToProps = (state, { match }) => {
   return {
     items: getVisibleItems(state, filter),
     isFetching: getIsFetching(state, filter),
+    errorMessage: getErrorMessage(state, filter),
     filter
   };
 };

@@ -2,30 +2,32 @@ import { v4 } from 'uuid';
 import { getIsFetching } from "../reducers";
 import * as api from '../api';
 
-const requestItems = (filter) => ({
-  type: 'REQUEST_ITEMS',
-  filter
-});
-
-const receiveItems = (
-  filter,
-  response
-) => ({
-  type: 'RECEIVE_ITEMS',
-  filter,
-  response
-});
-
 export const fetchItems = (filter) => (dispatch, getState) => {
   if (getIsFetching(getState(), filter)) {
     return Promise.resolve();
   }
 
-  dispatch(requestItems(filter));
-
-  return api.fetchItems(filter).then(response => {
-    dispatch(receiveItems(filter, response))
+  dispatch({
+    type: 'FETCH_ITEMS_REQUEST',
+    filter
   });
+
+  return api.fetchItems(filter).then(
+    response => {
+      dispatch({
+        type: 'FETCH_ITEMS_SUCCESS',
+        filter,
+        response
+      });
+    },
+    error => {
+      dispatch({
+        type: 'FETCH_ITEMS_FAILURE',
+        filter,
+        message: error.message || 'Something went wrong.'
+      });
+    }
+  );
 };
 
 export const addItem = (

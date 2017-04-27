@@ -1,6 +1,6 @@
 const byId = (state = {}, action) => {
   switch (action.type) {
-    case 'RECEIVE_ITEMS':
+    case 'FETCH_ITEMS_SUCCESS':
       const nextState = { ...state };
       action.response.forEach(item => {
         nextState[item.id] = item;
