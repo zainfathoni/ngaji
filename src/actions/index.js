@@ -1,4 +1,3 @@
-import { v4 } from 'uuid';
 import { getIsFetching } from "../reducers";
 import * as api from '../api';
 
@@ -30,17 +29,13 @@ export const fetchItems = (filter) => (dispatch, getState) => {
   );
 };
 
-export const addItem = (
-  activity,
-  target,
-  unit
-) => ({
-  type: 'ADD_ITEM',
-  id: v4(),
-  activity,
-  target,
-  unit
-});
+export const addItem = (activity, target, unit) => (dispatch) =>
+  api.addItem(activity, target, unit).then(response => {
+    dispatch({
+      type: 'ADD_ITEM_SUCCESS',
+      response
+    });
+  });
 
 export const toggleItem = (
   id

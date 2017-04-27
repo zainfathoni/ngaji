@@ -6,6 +6,11 @@ const byId = (state = {}, action) => {
         nextState[item.id] = item;
       });
       return nextState;
+    case 'ADD_ITEM_SUCCESS':
+      return {
+        ...state,
+        [action.response.id]: action.response
+      };
     default:
       return state;
   }

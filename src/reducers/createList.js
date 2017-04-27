@@ -2,12 +2,15 @@ import { combineReducers } from 'redux';
 
 const createList = (filter) => {
   const ids = (state = [], action) => {
-    if (action.filter !== filter) {
-      return state;
-    }
     switch (action.type) {
       case 'FETCH_ITEMS_SUCCESS':
-        return action.response.map(item => item.id);
+        return filter === action.filter ?
+          action.response.map(item => item.id) :
+          state;
+      case 'ADD_ITEM_SUCCESS':
+        return filter !== 'disabled' ?
+          [...state, action.response.id] :
+          state;
       default:
         return state;
     }

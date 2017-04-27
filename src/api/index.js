@@ -34,7 +34,7 @@ const delay = (ms) =>
 
 export const fetchItems = (filter) =>
   delay(500).then(() => {
-    if (Math.random() > 0.5) {
+    if (Math.random() > 0.95) {
       throw new Error('Boom!');
     }
 
@@ -48,4 +48,24 @@ export const fetchItems = (filter) =>
       default:
         throw new Error(`Unknown filter: ${filter}`);
     }
+  });
+
+export const addItem = (activity, target, unit) =>
+  delay(500).then(() => {
+    const item = {
+      id: v4(),
+      activity,
+      target,
+      unit,
+      enabled: true
+    };
+    fakeDatabase.items.push(item);
+    return item;
+  });
+
+export const toggleItem = (id) =>
+  delay(500).then(() => {
+    const item = fakeDatabase.items.find(i => i.id === id);
+    item.enabled = !item.enabled;
+    return item;
   });
