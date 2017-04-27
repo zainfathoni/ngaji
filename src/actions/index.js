@@ -1,5 +1,7 @@
+import { normalize } from 'normalizr';
 import { getIsFetching } from "../reducers";
 import * as api from '../api';
+import * as schema from './schema';
 
 export const fetchItems = (filter) => (dispatch, getState) => {
   if (getIsFetching(getState(), filter)) {
@@ -16,7 +18,7 @@ export const fetchItems = (filter) => (dispatch, getState) => {
       dispatch({
         type: 'FETCH_ITEMS_SUCCESS',
         filter,
-        response
+        response: normalize(response, schema.arrayOfItems)
       });
     },
     error => {
@@ -33,7 +35,7 @@ export const addItem = (activity, target, unit) => (dispatch) =>
   api.addItem(activity, target, unit).then(response => {
     dispatch({
       type: 'ADD_ITEM_SUCCESS',
-      response
+      response: normalize(response, schema.item)
     });
   });
 

@@ -5,11 +5,11 @@ const createList = (filter) => {
     switch (action.type) {
       case 'FETCH_ITEMS_SUCCESS':
         return filter === action.filter ?
-          action.response.map(item => item.id) :
+          action.response.result :
           state;
       case 'ADD_ITEM_SUCCESS':
         return filter !== 'disabled' ?
-          [...state, action.response.id] :
+          [...state, action.response.result] :
           state;
       default:
         return state;
