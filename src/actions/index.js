@@ -39,9 +39,10 @@ export const addItem = (activity, target, unit) => (dispatch) =>
     });
   });
 
-export const toggleItem = (
-  id
-) => ({
-  type: 'TOGGLE_ITEM',
-  id
-});
+export const toggleItem = (id) => (dispatch) =>
+  api.toggleItem(id).then(response => {
+    dispatch({
+      type: 'TOGGLE_ITEM_SUCCESS',
+      response: normalize(response, schema.item)
+    })
+  });
