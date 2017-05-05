@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { addItem } from '../actions';
+import { Button } from 'semantic-ui-react';
 
 let AddItem = ({ dispatch }) => {
   let activity, target, unit;
@@ -39,9 +40,9 @@ let AddItem = ({ dispatch }) => {
         placeholder="Unit"
         ref={node => {unit = node}}
       />
-      <button type="submit">
+      <Button type="submit">
         Add Item
-      </button>
+      </Button>
     </form>
   )
 }
