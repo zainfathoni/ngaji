@@ -1,4 +1,4 @@
-import { createStore, applyMiddleware } from "redux";
+import { createStore, applyMiddleware, compose } from "redux";
 import thunk from 'redux-thunk';
 import { createLogger } from 'redux-logger';
 import items from "./reducers";
@@ -9,9 +9,12 @@ const configureStore = () => {
     middlewares.push(createLogger());
   }
 
+  const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
   return createStore(
     items,
-    applyMiddleware(...middlewares)
+    composeEnhancers(
+      applyMiddleware(...middlewares)
+    )
   );
 };
 
